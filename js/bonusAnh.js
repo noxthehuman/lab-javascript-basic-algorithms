@@ -5,18 +5,31 @@ Nam ornare in tellus quis fringilla. Maecenas interdum enim vel felis tristique 
 Proin non tortor hendrerit ligula hendrerit iaculis. In hac habitasse platea dictumst. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque dignissim aliquam hendrerit. Nulla arcu lectus, imperdiet eget dictum sit amet, maximus sed eros. Nam varius lacinia luctus. Duis vel lorem sed nisi ultricies pharetra tincidunt eget nunc. Etiam at tristique diam, feugiat fringilla risus. Fusce id dolor pellentesque, placerat urna sit amet, lobortis felis. In ut varius ligula, in sagittis sem. Pellentesque risus tortor, hendrerit in pretium nec, laoreet sed nunc. Integer quis ex id velit ornare dapibus vel at diam. Nulla sed dapibus est.`
 const smallText = `il est beau. Oui oui.
 il est moche`
-console.log(smallText);
-bigText = bigText.replace(/\r\n/,'')
 
+bigText = bigText.replace(/\r*\n*/g,'') //remove linebreak
+//bigText = bigText.replace(/\r\n/g,'') //I don't understand why this does not work: \r\n = CR + LF
 const wordList = bigText.split(/\s|\.\s|,\s|\./)
-console.log(wordList)
 
-let numberOfWord = 0
+wordList.pop() //the last item is an empty string, probably due to the final '.'
+let numberOfWord = wordList.length
 let numberOfEt = 0
 
 for (let word of wordList){
-    if (word !==''){numberOfWord++}
     if (word === 'et'){numberOfEt++}
 }
-console.log(numberOfWord)
-console.log(numberOfEt)
+console.log(`there are ${numberOfWord} words`)
+console.log(`there are ${numberOfEt} Et words`)
+
+
+let phraseToCheck = "Was it a car or a cat I saw?"
+phraseToCheck = phraseToCheck.replace(/\W/g,'') //remove all except letters
+phraseToCheck = phraseToCheck.toLowerCase() //to lower case)
+const lc = phraseToCheck.length
+let isPalindrome = true
+
+
+for(let i=0 ; i<lc/2 ; i++){ //start from beginning up to the middle of the word
+    isPalindrome = isPalindrome && (phraseToCheck[i]===phraseToCheck[lc-i-1]?true:false) //check that the word is symmetric
+}
+
+console.log('phraseToCheck is a palindrome: ', isPalindrome)
